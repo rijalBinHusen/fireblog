@@ -6,7 +6,7 @@
         </div>
 
         <div class="nav-link">
-            <ul>
+            <ul v-show="!mobile">
                 <router-link class="link" to="#">Home</router-link>
                 <router-link class="link" to="#">Blogs</router-link>
                 <router-link class="link" to="#">Create Post</router-link>
@@ -14,10 +14,10 @@
             </ul>
         </div>
     </nav>
-    <MenuIcon class="menu-icon" />
+    <MenuIcon @click="toggleMobileNav" class="menu-icon" v-show="mobile" />
     <transition name="mobile-nav">
         <div class="nav-link">
-            <ul class="mobile-nav">
+            <ul class="mobile-nav" v-show="mobileNav">
                 <router-link class="link" to="#">Home</router-link>
                 <router-link class="link" to="#">Blogs</router-link>
                 <router-link class="link" to="#">Create Post</router-link>
@@ -34,6 +34,35 @@ import MenuIcon from "../assets/Icons/bars-regular.svg";
 export default {
     components: {
         MenuIcon
+    },
+    data() {
+        return {
+            mobile: null,
+            mobileNav: null,
+            windowWidth: null,
+        }
+    },
+    methods: {
+        // to check the screen of window
+        checkScreen() {
+            this.windowWidth = window.innerWidth;
+            if(this.windowWidth <= 750) {
+                this.mobile = true;
+                return
+            }
+            this.mobile = false
+            this.mobileNav = false;
+            return
+        },
+        toggleMobileNav() {
+            this.mobileNav = !this.mobileNav
+        }
+    },
+    created() {
+        // add event listener to window on resize
+        window.addEventListener("resize", this.checkScreen);
+        // run this function after component created
+        this.checkScreen()
     }
 }
 </script>
