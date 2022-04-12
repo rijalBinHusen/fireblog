@@ -143,6 +143,27 @@ header {
         background-color: #303030;
         top: 0;
         left: 0;
+        .link {
+            color: #fff;
+            margin-top: 51px;
+        }
+    }
+
+    .mobile-nav-enter-active,
+    .mobile-nav-leave-active {
+        transition: all 1s ease;
+    }
+
+    .mobile-nav-enter {
+        transform: translateX(-250px)
+    }
+
+    .mobile-nav-enter-to {
+        transform: translateX(0);
+    }
+
+    .mobile-nav-leave-to {
+        transform: translateX(-250px)
     }
 }
 
